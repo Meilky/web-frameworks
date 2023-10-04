@@ -33,3 +33,10 @@ vue:
 750ms on first build
 50kb build size
 ```
+
+## Sources
+
+[ecs](https://en.wikipedia.org/wiki/Entity_component_system)
+[pixijs](https://pixijs.com/)
+[chartjs](https://www.chartjs.org/)
+[flux](https://www.freecodecamp.org/news/an-introduction-to-the-flux-architectural-pattern-674ea74775c9/)
