@@ -1,9 +1,10 @@
-import { CreateTodo } from "./todo/create"
-import { UpdateTodo } from "./todo/update"
+import { CreatedTodo } from "./todo/create";
+import { ReadTodo } from "./todo/read";
+import { UpdatedTodo } from "./todo/update";
 
 export interface Action<K extends string, T> {
-	type: K,
-	data: T
+  type: K;
+  payload: T;
 }
 
-export type Actions = CreateTodo | UpdateTodo;
+export type Actions = CreatedTodo | ReadTodo | UpdatedTodo;

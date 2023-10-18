@@ -1,17 +1,19 @@
-import type { Action } from "../index"
-import type { Todo } from "@models/todo"
+import { dispatch } from "../../dispatcher";
+import type { Action } from "../index";
+import type { Todo } from "../../models/todo";
 
-export type CreateTodo = Action<"todo.create", Omit<Todo, "id" | "updatedAt" | "deletedAt">>;
+export type CreatedTodo = Action<"todo.created", Todo>;
 
-
-type Result = { ok: true } | { ok: false, errors: string[] }
+type Result = { ok: true } | { ok: false; errors: string[] };
 
 export async function createTodo(text: string): Promise<Result> {
-	const todo: Todo = {
-		id: Date.now(),
-		text,
-		createdAt: new Date(Date.now())
-	}
+  const newTodo: Todo = {
+    id: Date.now(),
+    text,
+    createdAt: new Date(Date.now()),
+  };
 
-	return { ok: true }
+  dispatch.dispatch({ type: "todo.created", payload: newTodo });
+
+  return { ok: true };
 }
