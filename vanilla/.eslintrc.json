@@ -1,0 +1,203 @@
+{
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:security/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "import"],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "warn",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/await-thenable": "warn",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/consistent-type-exports": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                "overrides": {
+                    "constructors": "off"
+                }
+            }
+        ],
+        "@typescript-eslint/no-for-in-array": "error",
+        "@typescript-eslint/no-import-type-side-effects": "error",
+        "@typescript-eslint/no-misused-promises": [
+            "warn",
+            {
+                "checksVoidReturn": false
+            }
+        ],
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
+        "@typescript-eslint/no-unsafe-call": "error",
+        "@typescript-eslint/parameter-properties": "error",
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "format": ["camelCase"],
+                "selector": "default",
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["camelCase"],
+                "selector": ["function", "variable"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["PascalCase"],
+                "selector": ["class", "enum"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["PascalCase"],
+                "selector": ["typeAlias", "typeParameter", "interface"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": null,
+                "selector": ["typeProperty", "objectLiteralProperty"],
+                "leadingUnderscore": "allowSingleOrDouble",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["camelCase"],
+                "selector": ["classMethod", "classProperty"],
+                "modifiers": ["private"],
+                "leadingUnderscore": "require",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["camelCase"],
+                "selector": ["classMethod", "classProperty"],
+                "modifiers": ["public"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["UPPER_CASE"],
+                "selector": ["variable"],
+                "modifiers": ["const", "global"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "format": ["UPPER_CASE"],
+                "selector": ["enumMember"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            }
+        ],
+        "class-methods-use-this": "off",
+        "no-continue": "off",
+        "no-var": "error",
+        "prefer-arrow-callback": "warn",
+        "spaced-comment": "warn",
+        "no-unreachable-loop": "warn",
+        "no-await-in-loop": "warn",
+        "eqeqeq": "warn",
+        "default-case-last": "warn",
+        "curly": ["error", "multi-line"],
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "no-return-await": "warn",
+        "padding-line-between-statements": [
+            "warn",
+            {
+                "blankLine": "always",
+                "prev": [
+                    "block",
+                    "block-like",
+                    "case",
+                    "class",
+                    "default",
+                    "for",
+                    "function",
+                    "if",
+                    "multiline-block-like",
+                    "multiline-const",
+                    "multiline-expression",
+                    "multiline-let",
+                    "multiline-var",
+                    "return",
+                    "switch",
+                    "try",
+                    "while",
+                    "with"
+                ],
+                "next": "*"
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": [
+                    "block",
+                    "block-like",
+                    "case",
+                    "class",
+                    "default",
+                    "for",
+                    "function",
+                    "if",
+                    "multiline-block-like",
+                    "multiline-const",
+                    "multiline-expression",
+                    "multiline-let",
+                    "multiline-var",
+                    "return",
+                    "switch",
+                    "try",
+                    "while",
+                    "with"
+                ]
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"]
+            }
+        ],
+        "import/no-duplicates": [
+            "error",
+            {
+                "prefer-inline": false
+            }
+        ],
+        "import/no-namespace": "error"
+    },
+    "overrides": [
+        {
+            "files": ["*.test.ts", "__mocks__/*"],
+            "rules": {
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/no-unsafe-call": "off"
+            }
+        }
+    ],
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
+    },
+    "env": {
+        "browser": true,
+        "es2022": true
+    }
+}

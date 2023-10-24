@@ -1,8 +1,8 @@
-import { todoStore } from "./stores/todo";
-import { readTodo } from "./actions/todo/read";
+import { TODO_STORE } from "./stores/todo";
+import { readTodo } from "./actions/todo";
 
 document.body.innerHTML = `Hello world!`;
 
 readTodo();
 
-console.log(todoStore.get());
+console.log(TODO_STORE.get());
