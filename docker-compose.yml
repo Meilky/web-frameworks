@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-web-frameworks
+    restart: unless-stopped
+    ports:
+      - $NGINX_PORT:80
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - "./$FRAMEWORK/dist:/usr/share/nginx/html"
+    depends_on:
+      - backend
+  backend:
+    hostname: backend-web-frameworks
+    container_name: backend-web-frameworks-$BUILD_TYPE
+    restart: unless-stopped
+    build:
+      context: ./backend/
+      target: $BUILD_TYPE
+    volumes:
+      - ./backend/src:/usr/app/src
+  frontend:
+    container_name: frontend-web-frameworks-$FRAMEWORK-$BUILD_TYPE
+    restart: no
+    build:
+      context: ./$FRAMEWORK/
+      target: $BUILD_TYPE
+    volumes:
+      - ./$FRAMEWORK/src:/usr/app/src
+      - ./$FRAMEWORK/dist:/usr/app/dist

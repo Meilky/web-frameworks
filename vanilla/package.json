@@ -4,8 +4,8 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
+        "watch": "vite build --watch",
+        "build": "vite build",
         "format": "prettier src --write",
         "lint": "eslint src --fix",
         "preview": "vite preview"

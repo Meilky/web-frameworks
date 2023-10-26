@@ -15,11 +15,7 @@ export class Dispatcher<T> {
 
     public dispatch(data: T): void {
         for (const callback of this._callbacks) {
-            try {
-                Promise.resolve(callback(data));
-            } catch (error) {
-                console.error(error);
-            }
+            Promise.resolve(callback(data));
         }
     }
 }

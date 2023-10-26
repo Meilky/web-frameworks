@@ -7,7 +7,7 @@ export type ReadTodos = Action<"todo.read", Todo[]>;
 export type UpdatedTodo = Action<"todo.updated", Todo>;
 export type DeletedTodo = Action<"todo.deleted", number>;
 
-type Result = { ok: true } | { ok: false; errors: string[] };
+type Result = { ok: true } | { ok: false; error: any };
 
 export async function createTodo(text: string): Promise<Result> {
     const todo: Todo = {
@@ -21,16 +21,21 @@ export async function createTodo(text: string): Promise<Result> {
 }
 
 export async function readTodos(): Promise<Result> {
-    const todos: Todo[] = [
-        { id: 0, text: "asdf0" },
-        { id: 1, text: "asdf1" },
-        { id: 2, text: "asdf2" },
-        { id: 3, text: "asdf3" },
-    ];
+    try {
+        const res = await fetch("/api/todos", {
+            headers: {
+                Accept: "application/json",
+            },
+        });
 
-    DISPATCH.dispatch({ type: "todo.read", payload: todos });
+        const todos = await res.json();
 
-    return { ok: true };
+        DISPATCH.dispatch({ type: "todo.read", payload: todos });
+
+        return { ok: true };
+    } catch (error) {
+        return { ok: false, error };
+    }
 }
 
 export async function updateTodo(id: number, text: string): Promise<Result> {
