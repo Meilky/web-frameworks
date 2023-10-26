@@ -1,3 +1,3 @@
-import type { CreatedTodo, ReadTodo, UpdatedTodo } from "./todo";
+import type { CreatedTodo, DeletedTodo, ReadTodos, UpdatedTodo } from "./todo";
 
-export type Actions = CreatedTodo | ReadTodo | UpdatedTodo;
+export type Actions = CreatedTodo | ReadTodos | UpdatedTodo | DeletedTodo;

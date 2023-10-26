@@ -3,29 +3,29 @@ import type { Action } from "./types";
 import type { Todo } from "../models/todo";
 
 export type CreatedTodo = Action<"todo.created", Todo>;
-export type ReadTodo = Action<"todo.read", Todo[]>;
+export type ReadTodos = Action<"todo.read", Todo[]>;
 export type UpdatedTodo = Action<"todo.updated", Todo>;
+export type DeletedTodo = Action<"todo.deleted", number>;
 
 type Result = { ok: true } | { ok: false; errors: string[] };
 
 export async function createTodo(text: string): Promise<Result> {
-    const newTodo: Todo = {
+    const todo: Todo = {
         id: Date.now(),
         text,
-        createdAt: new Date(Date.now()),
     };
 
-    DISPATCH.dispatch({ type: "todo.created", payload: newTodo });
+    DISPATCH.dispatch({ type: "todo.created", payload: todo });
 
     return { ok: true };
 }
 
-export async function readTodo(): Promise<Result> {
+export async function readTodos(): Promise<Result> {
     const todos: Todo[] = [
-        { id: 0, text: "asdf0", createdAt: new Date(Date.now()) },
-        { id: 1, text: "asdf1", createdAt: new Date(Date.now()) },
-        { id: 2, text: "asdf2", createdAt: new Date(Date.now()) },
-        { id: 3, text: "asdf3", createdAt: new Date(Date.now()) },
+        { id: 0, text: "asdf0" },
+        { id: 1, text: "asdf1" },
+        { id: 2, text: "asdf2" },
+        { id: 3, text: "asdf3" },
     ];
 
     DISPATCH.dispatch({ type: "todo.read", payload: todos });
@@ -33,13 +33,14 @@ export async function readTodo(): Promise<Result> {
     return { ok: true };
 }
 
-export async function updateTodo(todo: Todo): Promise<Result> {
-    const updatedTodo: Todo = {
-        ...todo,
-        updatedAt: new Date(Date.now()),
-    };
+export async function updateTodo(id: number, text: string): Promise<Result> {
+    DISPATCH.dispatch({ type: "todo.updated", payload: { id, text } });
 
-    DISPATCH.dispatch({ type: "todo.updated", payload: updatedTodo });
+    return { ok: true };
+}
+
+export async function deleteTodo(id: number): Promise<Result> {
+    DISPATCH.dispatch({ type: "todo.deleted", payload: id });
 
     return { ok: true };
 }
