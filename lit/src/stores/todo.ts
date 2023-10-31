@@ -92,9 +92,9 @@ export class TodoStore extends EventEmitter<Events> {
 
         if (existingTodo === undefined) return;
 
-        this.emit("removed", existingTodo);
-
         this._todos.delete(id);
+
+        this.emit("removed", existingTodo);
     }
 }
 

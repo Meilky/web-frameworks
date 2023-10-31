@@ -12,3 +12,5 @@ setTimeout(() => {
 setTimeout(() => {
     deleteTodo(2);
 }, 4000);
+
+document.body.append(document.createElement("todo-list"))

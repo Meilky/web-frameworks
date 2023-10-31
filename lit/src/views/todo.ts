@@ -4,37 +4,35 @@ import type { Callback } from "../dispatcher";
 import type { Todo } from "../models/todo";
 
 import { LitElement, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 
 @customElement("todo-list")
 export class TodoView extends LitElement {
-  private _callbacks: {
-    added: Callback<Todo>;
-    removed: Callback<Todo>;
-  };
+  private _callback: Callback<Todo>;
+
+  @state()
+  private _todos: Todo[] = [];
 
   constructor() {
     super();
 
-    this._callbacks = {
-      added: (): void => {
-        this.render();
-      },
-      removed: (): void => {
-        this.render();
-      },
+    this._callback = (): void => {
+      this._todos = Array.from(TODO_STORE.get());
     };
   }
 
   connectedCallback(): void {
-    TODO_STORE.on("added", this._callbacks.added);
-    TODO_STORE.on("removed", this._callbacks.removed);
+    super.connectedCallback();
+
+    TODO_STORE.on("added", this._callback);
+    TODO_STORE.on("updated", this._callback);
+    TODO_STORE.on("removed", this._callback);
   }
 
   render() {
     const todos = [];
 
-    for (const todo of TODO_STORE.get()) {
+    for (const todo of this._todos) {
       todos.push(html`<li>${todo.text}</li>`);
     }
 
@@ -44,8 +42,11 @@ export class TodoView extends LitElement {
   }
 
   disconnectedCallback(): void {
-    TODO_STORE.off("added", this._callbacks.added);
-    TODO_STORE.off("removed", this._callbacks.removed);
+    super.disconnectedCallback();
+
+    TODO_STORE.off("added", this._callback);
+    TODO_STORE.off("updated", this._callback);
+    TODO_STORE.off("removed", this._callback);
   }
 }
 
