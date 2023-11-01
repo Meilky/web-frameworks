@@ -4,13 +4,15 @@
 
 	import type { Todo } from "../models/todo";
 
-	let todos: Todo[] = Array.from(TODO_STORE.get());
+	let todos: Todo[] = [];
 
 	function callback(): void {
 		todos = Array.from(TODO_STORE.get());
 	}
 
 	onMount(() => {
+		todos = Array.from(TODO_STORE.get());
+
 		TODO_STORE.on("added", callback);
 		TODO_STORE.on("updated", callback);
 		TODO_STORE.on("removed", callback);
