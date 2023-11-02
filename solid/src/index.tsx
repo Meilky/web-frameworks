@@ -1,9 +1,21 @@
-/* @refresh reload */
-import { render } from 'solid-js/web'
+import TodoView from "./views/todo.tsx";
+import { deleteTodo, readTodos, updateTodo } from "./actions/todo";
+import { render } from "solid-js/web";
 
-import './index.css'
-import App from './App'
+render(() => <TodoView />, document.body);
 
-const root = document.getElementById('root')
+setTimeout(() => {
+  readTodos();
+}, 2000);
 
-render(() => <App />, root!)
+setTimeout(() => {
+  for (let i = 0; i < 500; i = i + 3) {
+    updateTodo(i, "updated");
+  }
+}, 3000);
+
+setTimeout(() => {
+  for (let i = 0; i < 500; i = i + 5) {
+    deleteTodo(i);
+  }
+}, 4000);
